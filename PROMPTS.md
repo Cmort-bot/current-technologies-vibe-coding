@@ -79,3 +79,11 @@ Ausgewählt habe ich:
 > Wie soll der Erfahrungsbericht entstehen? **Entwurf aus Protokoll** (Ich schreibe ihn nur aus dem, was wirklich passiert ist (Prompts, Rückfrage, 6 gefundene Fehler). Du liest drüber und ergänzt deinen Eindruck.)
 
 **Was passiert ist:** Claude hat aus Protokoll, Git-Historie und Code einen Entwurf des Erfahrungsberichts in die README geschrieben und ihn vor dem Push von weiteren KI-Agenten gegen diese Quellen prüfen lassen. Die Prüfung hat in Protokoll und Bericht 16 Ungenauigkeiten gefunden, zum Beispiel eine falsche Anzahl an Prompts, eine falsche Uhrzeit, einen fehlenden ersten Eintrag und die Behauptung, alle Korrekturen seien in der App nachgeprüft worden. Claude hat alle 16 korrigiert. Eine weitere Rückfrage von Claude, ob vor dem Veröffentlichen die E-Mail-Adresse in den Commits ersetzt werden soll, habe ich abgebrochen.
+
+## Prompt 7 (22.10.2026, 16:38): Antwort auf die Rückfrage
+
+Claude hat noch einmal gefragt, mit welcher E-Mail-Adresse das öffentliche Repo gepusht werden soll, weil in den Commits meine private Adresse stand. Angeklickt habe ich:
+
+> **Anonyme Adresse** (Ersetze die E-Mail durch die anonyme GitHub-Adresse von Cmort-bot und push dann öffentlich, ohne den Prof einzuladen.)
+
+**Was passiert ist:** Claude hat in allen Commits die E-Mail-Adresse durch die anonyme GitHub-Adresse ersetzt (Name und Zeitstempel blieben gleich) und das Repo öffentlich auf GitHub gestellt, ohne jemanden einzuladen.

@@ -39,7 +39,7 @@ npm test
 
 ## Erfahrungen mit Vibe Coding
 
-**Ablauf.** Als Tool habe ich Claude Code verwendet (Desktop-App, Modell Claude Opus 5.5). Vorab habe ich Claude die Aufgabenstellung aus Sakai gegeben. Claude hat daraufhin vorgeschlagen, jeden Prompt wörtlich zu protokollieren und den Erfahrungsbericht am Ende aus dem Protokoll zu entwerfen. Danach kamen sechs Prompts von mir, zwei davon waren Antworten auf Auswahlfragen von Claude. Nur die ersten beiden betrafen die App selbst: ein sehr knapper erster Prompt („erstelle mir ein rsu programm von xyz …“) und meine Antworten auf zwei Rückfragen. Daraus ist Version 1 entstanden, ohne dass ich selbst eine Zeile Code geschrieben habe. Die übrigen vier Prompts betrafen nur die Abgabe. Die Git-Historie zeigt die Entwicklungsschritte der App: Version 1 und die Fehlerbehebung nach der Selbstprüfung.
+**Ablauf.** Als Tool habe ich Claude Code verwendet (Desktop-App, Modell Claude Opus 5.5). Vorab habe ich Claude die Aufgabenstellung aus Sakai gegeben. Claude hat daraufhin vorgeschlagen, jeden Prompt wörtlich zu protokollieren und den Erfahrungsbericht am Ende aus dem Protokoll zu entwerfen. Danach kamen sieben Prompts von mir, drei davon waren Antworten auf Auswahlfragen von Claude. Nur die ersten beiden betrafen die App selbst: ein sehr knapper erster Prompt („erstelle mir ein rsu programm von xyz …“) und meine Antworten auf zwei Rückfragen. Daraus ist Version 1 entstanden, ohne dass ich selbst eine Zeile Code geschrieben habe. Die übrigen fünf Prompts betrafen nur die Abgabe. Die Git-Historie zeigt die Entwicklungsschritte der App: Version 1 und die Fehlerbehebung nach der Selbstprüfung.
 
 ### Was gut funktioniert hat
 
