@@ -45,15 +45,16 @@ function readInputs() {
   };
   if (!Number.isInteger(input.totalShares) || input.totalShares < 1) return { error: "Anzahl RSUs muss eine ganze Zahl ab 1 sein." };
   if (!grant || Number.isNaN(grant.getTime())) return { error: "Bitte ein gültiges Zuteilungsdatum eingeben." };
+  if ($("price").value === "") return { error: "Bitte einen gültigen Aktienkurs eingeben." };
   if (!(input.price >= 0)) return { error: "Der Aktienkurs darf nicht negativ sein." };
   if (!(input.taxRate >= 0 && input.taxRate <= 1)) return { error: "Der Steuersatz muss zwischen 0 und 100 % liegen." };
   return { input };
 }
 
-function renderChart(schedule, totalShares, today) {
+function renderChart(schedule, totalShares, today, grantDate) {
   const svg = $("chart");
   const W = 640, H = 220, left = 48, right = 16, top = 12, bottom = 28;
-  const start = schedule.length ? Vesting.addMonths(schedule[schedule.length - 1].date, -schedule[schedule.length - 1].month) : today;
+  const start = grantDate;
   const end = schedule.length ? schedule[schedule.length - 1].date : today;
   const span = Math.max(end - start, 1);
   const x = (d) => left + ((d - start) / span) * (W - left - right);
@@ -91,6 +92,8 @@ function render() {
   const { input, error } = readInputs();
   $("error").hidden = !error;
   $("error").textContent = error || "";
+  // bei ungültiger Eingabe die alten Zahlen ausgrauen, damit sie nicht wie aktuelle wirken
+  document.querySelector(".results").style.opacity = error ? "0.3" : "";
   if (error) return;
 
   const today = new Date();
@@ -105,9 +108,13 @@ function render() {
   $("unvested-value").textContent = fmt(status.unvested * input.price);
 
   if (status.next) {
-    const days = Math.ceil((status.next.date - today) / 86_400_000);
+    // Kalendertage ab Mitternacht zählen, sonst verschiebt die Zeitumstellung den Wert um einen Tag
+    const midnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const days = Math.round((status.next.date - midnight) / 86_400_000);
+    const sharesWord = status.next.shares === 1 ? "Aktie" : "Aktien";
+    const when = days === 1 ? "morgen" : `in ${days} Tagen`;
     $("next-date").textContent = dateFormat.format(status.next.date);
-    $("next-info").textContent = `${numberFormat.format(status.next.shares)} Aktien, ${fmt(status.next.shares * input.price)}, in ${days} Tagen`;
+    $("next-info").textContent = `${numberFormat.format(status.next.shares)} ${sharesWord}, ${fmt(status.next.shares * input.price)}, ${when}`;
   } else {
     $("next-date").textContent = "fertig";
     $("next-info").textContent = "Alle RSUs sind gevestet.";
@@ -148,7 +155,7 @@ function render() {
   });
   $("schedule").replaceChildren(...rows);
 
-  renderChart(schedule, input.totalShares, today);
+  renderChart(schedule, input.totalShares, today, input.grantDate);
 }
 
 loadSaved();

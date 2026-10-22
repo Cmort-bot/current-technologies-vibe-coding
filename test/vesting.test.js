@@ -41,6 +41,14 @@ describe("buildSchedule", () => {
     assert.equal(schedule.at(-1).cumulative, 1200);
     assert.equal(schedule.reduce((sum, e) => sum + e.shares, 0), 1200);
   });
+  it("kleine Zuteilung: keine Termine mit 0 Aktien", () => {
+    const schedule = buildSchedule({ ...base, totalShares: 10, cliffMonths: 0, intervalMonths: 1 });
+    assert.ok(schedule.every((e) => e.shares > 0));
+    assert.equal(schedule.length, 10);
+    assert.equal(schedule.at(-1).cumulative, 10);
+    const one = buildSchedule({ ...base, totalShares: 1 });
+    assert.deepEqual(one.map((e) => [e.month, e.shares]), [[48, 1]]);
+  });
   it("nicht teilbare Anzahl: nur ganze Aktien, Summe bleibt exakt", () => {
     const schedule = buildSchedule({ ...base, totalShares: 1001, cliffMonths: 0, intervalMonths: 1 });
     assert.ok(schedule.every((e) => Number.isInteger(e.shares) && e.shares >= 0));

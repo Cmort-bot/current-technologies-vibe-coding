@@ -28,3 +28,16 @@ Claude hat zwei Auswahlfragen gestellt, ausgewählt habe ich:
 - 9 automatischen Tests für die Rechenlogik (`npm test`), z. B. Monatsende und Cliff länger als die Laufzeit
 
 Dauer: rund 5 Minuten. Ein Problem gab es nur beim Starten der Vorschau (Port-Konflikt des lokalen Servers), nicht in der App selbst.
+
+## Selbstprüfung durch Claude (ohne neuen Prompt, 22.10.2026, ca. 11:30 bis 11:45)
+
+Claude hat die eigene Version 1 von zwei zusätzlichen Prüf-Agenten testen lassen: einer hat die Rechenlogik mit über 2 Mio. zufälligen Kombinationen geprüft, einer die Oberfläche. Jeder Fund wurde von einem weiteren Agenten nachgestellt. Obwohl die 9 eigenen Tests grün waren, wurden **6 echte Fehler** gefunden:
+
+1. Bei kleinen Zuteilungen (z. B. 1 RSU) zeigte die App Termine mit „0 Aktien“ als „Nächstes Vesting“ an.
+2. Der Countdown „in X Tagen“ war rund um die Zeitumstellung einen Tag daneben.
+3. Immer Mehrzahl: „1 Aktien“, „in 1 Tagen“.
+4. Ein leeres Kursfeld wurde als Kurs 0 gewertet, ohne Fehlermeldung.
+5. Bei einer Fehlermeldung blieben die alten Zahlen stehen, als wären sie aktuell.
+6. Bei einer Zuteilung am 29. Februar begann das Diagramm am 28. Februar.
+
+Alle sechs wurden behoben und in der App nachgeprüft, für Fehler 1 gibt es einen neuen Test (jetzt 10 Tests).

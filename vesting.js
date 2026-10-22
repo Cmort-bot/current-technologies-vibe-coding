@@ -22,14 +22,17 @@
 
   // Vesting-Plan: pro Termin Datum, Anzahl Aktien und kumulierte Summe.
   // Es werden nur ganze Aktien vergeben (abgerundet), der letzte Termin bekommt den Rest.
+  // Termine, an denen keine ganze Aktie vestet (bei kleinen Zuteilungen), fallen weg.
   function buildSchedule({ grantDate, totalShares, durationMonths, cliffMonths, intervalMonths }) {
     let previous = 0;
-    return vestingMonths(durationMonths, cliffMonths, intervalMonths).map((month) => {
-      const cumulative = Math.floor((totalShares * month) / durationMonths);
-      const shares = cumulative - previous;
-      previous = cumulative;
-      return { month, date: addMonths(grantDate, month), shares, cumulative };
-    });
+    return vestingMonths(durationMonths, cliffMonths, intervalMonths)
+      .map((month) => {
+        const cumulative = Math.floor((totalShares * month) / durationMonths);
+        const shares = cumulative - previous;
+        previous = cumulative;
+        return { month, date: addMonths(grantDate, month), shares, cumulative };
+      })
+      .filter((e) => e.shares > 0);
   }
 
   // Stand zu einem Stichtag: was ist schon gevestet, was kommt als Nächstes
