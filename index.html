@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RSU-Rechner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>RSU-Rechner <span id="company-title">XYZ</span></h1>
+      <p class="muted">Restricted Stock Units: Vesting-Plan, aktueller Stand und Wert deiner Zuteilung.</p>
+    </header>
+
+    <div class="layout">
+      <form id="inputs" class="card">
+        <h2>Deine Zuteilung</h2>
+        <label>Firma <input id="company" type="text" value="XYZ"></label>
+        <label>Anzahl RSUs <input id="shares" type="number" min="1" step="1" value="1200"></label>
+        <label>Zuteilungsdatum (Grant) <input id="grant" type="date" value="2025-01-15"></label>
+        <label>Vesting-Dauer
+          <select id="duration">
+            <option value="12">1 Jahr</option>
+            <option value="24">2 Jahre</option>
+            <option value="36">3 Jahre</option>
+            <option value="48" selected>4 Jahre</option>
+          </select>
+        </label>
+        <label>Cliff
+          <select id="cliff">
+            <option value="0">kein Cliff</option>
+            <option value="6">6 Monate</option>
+            <option value="12" selected>12 Monate</option>
+          </select>
+        </label>
+        <label>Vesting-Intervall
+          <select id="interval">
+            <option value="1">monatlich</option>
+            <option value="3" selected>quartalsweise</option>
+            <option value="6">halbjährlich</option>
+            <option value="12">jährlich</option>
+          </select>
+        </label>
+        <div class="row">
+          <label>Aktienkurs <input id="price" type="number" min="0" step="0.01" value="85"></label>
+          <label>Währung
+            <select id="currency">
+              <option value="USD" selected>USD</option>
+              <option value="EUR">EUR</option>
+            </select>
+          </label>
+        </div>
+        <label>Steuersatz in % (optional, grobe Schätzung) <input id="tax" type="number" min="0" max="100" step="1" value="0"></label>
+        <p id="error" class="error" hidden></p>
+      </form>
+
+      <section class="results">
+        <div class="stats">
+          <div class="card stat">
+            <span class="label">Gevestet</span>
+            <strong id="vested-shares">0</strong>
+            <span id="vested-value" class="value"></span>
+          </div>
+          <div class="card stat">
+            <span class="label">Noch offen</span>
+            <strong id="unvested-shares">0</strong>
+            <span id="unvested-value" class="value"></span>
+          </div>
+          <div class="card stat">
+            <span class="label">Nächstes Vesting</span>
+            <strong id="next-date"></strong>
+            <span id="next-info" class="value"></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="progress-head">
+            <span>Fortschritt</span><span id="progress-text">0 %</span>
+          </div>
+          <div class="progress"><div id="progress-bar"></div></div>
+          <p id="net-info" class="muted" hidden></p>
+        </div>
+
+        <div class="card">
+          <h2>Verlauf</h2>
+          <svg id="chart" viewBox="0 0 640 220" role="img" aria-label="Kumulierte gevestete Aktien über die Zeit"></svg>
+        </div>
+
+        <div class="card">
+          <h2>Vesting-Plan</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Datum</th><th>Aktien</th><th>Kumuliert</th><th>Wert</th><th>Status</th></tr>
+              </thead>
+              <tbody id="schedule"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="vesting.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

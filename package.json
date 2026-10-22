@@ -1,0 +1,9 @@
+{
+  "name": "rsu-rechner",
+  "private": true,
+  "description": "RSU-Rechner für eine fiktive Firma XYZ, entstanden mit Vibe Coding",
+  "author": "Julian-Alexander Amort",
+  "scripts": {
+    "test": "node --test"
+  }
+}
